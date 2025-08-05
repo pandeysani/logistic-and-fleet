@@ -103,7 +103,7 @@ fleet-management-backend/
 > Swagger UI available at:
 
 ```
-http://localhost:8080/swagger-ui/index.html
+http://localhost:8090/swagger-ui/index.html
 ```
 
 You can test all endpoints interactively, authorize with your JWT token, and inspect request/response payloads.
@@ -128,7 +128,7 @@ You can test all endpoints interactively, authorize with your JWT token, and ins
 
 1. Clone the project:
 ```
-git clone https://github.com/your-repo/fleet-management-backend.git
+git clone https://github.com/pandeysani/logistic-and-fleet
 ```
 
 2. Configure `application.properties` with your database settings.
