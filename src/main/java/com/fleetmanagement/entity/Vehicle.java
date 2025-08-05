@@ -2,6 +2,8 @@ package com.fleetmanagement.entity;
 
 import java.time.LocalDate;
 
+import com.fleetmanagement.utils.VehicleStatus;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

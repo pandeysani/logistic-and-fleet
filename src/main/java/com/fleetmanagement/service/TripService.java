@@ -11,9 +11,9 @@ import com.fleetmanagement.Repository.VehicleRepository;
 import com.fleetmanagement.dto.TripRequest;
 import com.fleetmanagement.dto.TripResponse;
 import com.fleetmanagement.entity.Trip;
-import com.fleetmanagement.entity.TripStatus;
 import com.fleetmanagement.entity.User;
 import com.fleetmanagement.entity.Vehicle;
+import com.fleetmanagement.utils.TripStatus;
 
 import lombok.RequiredArgsConstructor;
 
