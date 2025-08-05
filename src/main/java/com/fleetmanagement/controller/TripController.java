@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fleetmanagement.dto.TripRequest;
 import com.fleetmanagement.dto.TripResponse;
-import com.fleetmanagement.entity.TripStatus;
 import com.fleetmanagement.service.TripService;
+import com.fleetmanagement.utils.TripStatus;
 
 import lombok.RequiredArgsConstructor;
 

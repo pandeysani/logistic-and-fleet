@@ -1,6 +1,6 @@
 package com.fleetmanagement.dto;
 
-import com.fleetmanagement.entity.Role;
+import com.fleetmanagement.utils.Role;
 
 import lombok.Data;
 

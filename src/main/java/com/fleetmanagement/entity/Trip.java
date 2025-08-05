@@ -2,6 +2,8 @@ package com.fleetmanagement.entity;
 
 import java.time.LocalDateTime;
 
+import com.fleetmanagement.utils.TripStatus;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;

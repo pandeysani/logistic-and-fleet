@@ -2,7 +2,7 @@ package com.fleetmanagement.dto;
 
 import java.time.LocalDateTime;
 
-import com.fleetmanagement.entity.TripStatus;
+import com.fleetmanagement.utils.TripStatus;
 
 import lombok.Data;
 

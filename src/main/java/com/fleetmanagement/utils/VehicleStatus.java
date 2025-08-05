@@ -1,4 +1,4 @@
-package com.fleetmanagement.entity;
+package com.fleetmanagement.utils;
 
 public enum VehicleStatus {
     ACTIVE,

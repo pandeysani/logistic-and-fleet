@@ -2,7 +2,7 @@ package com.fleetmanagement.dto;
 
 import java.time.LocalDate;
 
-import com.fleetmanagement.entity.VehicleStatus;
+import com.fleetmanagement.utils.VehicleStatus;
 
 import lombok.Data;
 
