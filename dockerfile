@@ -20,14 +20,14 @@ COPY src ./src
 RUN ./mvnw clean package -DskipTests
 
 # Fail if no JAR is created
-RUN test -f target/*.jar
+RUN test -f target/fleet-backend-0.0.1-SNAPSHOT.jar
 
 # Stage 2: Run the application
 FROM eclipse-temurin:17-jre
 WORKDIR /app
 
 # Copy the built JAR from builder stage
-COPY --from=builder /workspace/target/*.jar app.jar
+COPY --from=builder /workspace/target/fleet-backend-0.0.1-SNAPSHOT.jar app.jar
 
 # Expose the default dev port (Render overrides with $PORT)
 EXPOSE 8090
