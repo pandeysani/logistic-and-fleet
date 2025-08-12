@@ -1,29 +1,40 @@
+# ============================
 # Stage 1: Build the application
+# ============================
 FROM maven:3.8.7-eclipse-temurin-17 AS builder
 WORKDIR /workspace
 
-# Copy pom.xml and download dependencies
+# Copy Maven config first for caching
 COPY pom.xml .
-RUN mvn dependency:go-offline
+COPY .mvn .mvn
+COPY mvnw .
 
-# Copy full source code
+# Make mvnw executable
+RUN chmod +x mvnw
+
+# Download dependencies
+RUN ./mvnw dependency:go-offline
+
+# Copy source code
 COPY src ./src
 
-# Build application (fail if tests fail, skip tests if needed)
-RUN mvn clean package -DskipTests
+# Build application (skip tests for faster build)
+RUN ./mvnw clean package -DskipTests
 
-# Double-check jar exists
-RUN ls -l target && test -f target/fleet-backend-0.0.1-SNAPSHOT.jar
+# Check jar is created
+RUN ls -l target && test -f target/*.jar
 
+# ============================
 # Stage 2: Run the application
+# ============================
 FROM eclipse-temurin:17-jre
 WORKDIR /app
 
-# Copy jar from builder
-COPY --from=builder /workspace/target/fleet-backend-0.0.1-SNAPSHOT.jar app.jar
+# Copy runnable jar from builder
+COPY --from=builder /workspace/target/*.jar /app.jar
 
-# Expose port
-EXPOSE 8090
+# Expose the port Render will set dynamically
+EXPOSE 8080
 
-# Run app
+# Run the application, passing PORT from environment
 ENTRYPOINT ["java", "-jar", "/app.jar"]
