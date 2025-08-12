@@ -2,24 +2,32 @@
 FROM maven:3.8.7-eclipse-temurin-17 AS builder
 WORKDIR /workspace
 
-# Copy pom.xml and download dependencies (caching)
+# Copy Maven config and wrapper
 COPY pom.xml .
-RUN mvn dependency:go-offline
+COPY .mvn .mvn
+COPY mvnw .
 
-# Copy source code and build
+# Download dependencies
+RUN ./mvnw dependency:go-offline
+
+# Copy source code
 COPY src ./src
-RUN mvn clean package -DskipTests
+
+# Build application (skip tests for speed)
+RUN ./mvnw clean package -DskipTests
+
+# Fail if no JAR is created
+RUN test -f target/*.jar
 
 # Stage 2: Run the application
 FROM eclipse-temurin:17-jre
 WORKDIR /app
 
-# Copy jar from the builder stage
+# Copy the built JAR (wildcard will match the only jar in target)
 COPY --from=builder /workspace/target/*.jar app.jar
 
-# Expose the port your app will listen on locally by default
-# On Render, the $PORT env variable overrides this at runtime
+# Expose local dev port (Render overrides with $PORT)
 EXPOSE 8090
 
-# Run the application
+# Start application
 ENTRYPOINT ["java", "-jar", "/app.jar"]
