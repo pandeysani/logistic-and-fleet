@@ -7,7 +7,10 @@ COPY pom.xml .
 COPY .mvn .mvn
 COPY mvnw .
 
-# Download dependencies
+# Ensure mvnw has execute permissions
+RUN chmod +x mvnw
+
+# Download dependencies (cache layer)
 RUN ./mvnw dependency:go-offline
 
 # Copy source code
@@ -23,11 +26,11 @@ RUN test -f target/*.jar
 FROM eclipse-temurin:17-jre
 WORKDIR /app
 
-# Copy the built JAR (wildcard will match the only jar in target)
+# Copy the built JAR from builder stage
 COPY --from=builder /workspace/target/*.jar app.jar
 
-# Expose local dev port (Render overrides with $PORT)
+# Expose the default dev port (Render overrides with $PORT)
 EXPOSE 8090
 
-# Start application
+# Start the Spring Boot application
 ENTRYPOINT ["java", "-jar", "/app.jar"]
